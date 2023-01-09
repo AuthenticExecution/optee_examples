@@ -10,7 +10,6 @@ typedef enum
     Entrypoint_Disable               = 0x2,
     Entrypoint_HandleInput           = 0x3,
     Entrypoint_User                  = 0x4
-    
 } Entrypoint;
 
 ResultMessage handler_add_connection(CommandMessage m);

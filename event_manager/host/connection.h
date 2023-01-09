@@ -3,19 +3,15 @@
 
 #include <stdint.h>
 
-#include "addr.h"
-
-#include "enclave_utils.h"
-#include "tee_client_api.h"
-
+#include <netinet/in.h>
 
 typedef struct
 {
-    conn_index    conn_id;
-    uint16_t      to_sm;
-    uint16_t      to_port;
-    ipv4_addr_t   to_address;
-    bool          local;
+    uint16_t        conn_id;
+    uint16_t        to_sm;
+    uint16_t        to_port;
+    struct in_addr  to_address;
+    uint8_t         local;
 } Connection;
 
 // Copies connection so may be stack allocated.

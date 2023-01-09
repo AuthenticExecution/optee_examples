@@ -1,6 +1,6 @@
 #include "connection.h"
 
-#include "utils.h"
+#include <stdlib.h>
 
 typedef struct Node
 {
@@ -12,7 +12,7 @@ static Node* connections_head = NULL;
 
 int connections_add(Connection* connection)
 {
-    Node* node = malloc_aligned(sizeof(Node));
+    Node* node = malloc(sizeof(Node));
 
     if (node == NULL)
         return 0;
