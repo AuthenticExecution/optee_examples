@@ -10,6 +10,8 @@ typedef struct Node
 
 static Node* connections_head = NULL;
 
+void delete_connections_rec(Node *current);
+
 int connections_add(Connection* connection)
 {
     Node* node = malloc(sizeof(Node));
@@ -54,4 +56,18 @@ int connections_replace(Connection* connection)
     }
 
     return 0;
+}
+
+void delete_connections(void) {
+    delete_connections_rec(connections_head);
+    connections_head = NULL;
+}
+
+void delete_connections_rec(Node *current) {
+    if(current == NULL) {
+        return;
+    }
+
+    delete_connections_rec(current->next);
+    free(current);
 }

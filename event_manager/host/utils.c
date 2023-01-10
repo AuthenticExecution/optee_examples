@@ -5,6 +5,10 @@
 #include <string.h>
 #include <sys/socket.h>
 
+#ifdef MEASURE_TIME
+#include <time.h>
+#endif
+
 #include "logging.h"
 
 struct ParseState
@@ -106,4 +110,18 @@ int connect_to_server(struct in_addr address, uint16_t port, int *fd) {
 
     *fd = sock;
     return 1;
+}
+
+void measure_time(char *msg) {
+#ifdef MEASURE_TIME
+    struct timespec tms;
+
+    if (clock_gettime(CLOCK_REALTIME,&tms)) {
+        WARNING("Failed to measure time");
+        return;
+    }
+
+    uint64_t time_micros = tms.tv_nsec / 1000 + (tms.tv_nsec % 1000 >= 500 ? 1 : 0);
+    INFO("tz_%s: %lu%06lu us", msg, tms.tv_sec, time_micros);
+#endif
 }

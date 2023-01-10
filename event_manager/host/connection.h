@@ -23,5 +23,7 @@ Connection* connections_get(uint16_t conn_id);
 // Replaces an existing connection
 int connections_replace(Connection* connection);
 
+// Delete all connections 
+void delete_connections(void);
 
 #endif

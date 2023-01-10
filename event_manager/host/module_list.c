@@ -13,6 +13,8 @@ typedef struct CTX_Node {
 
 static CTX_Node* ctx_head = NULL;
 
+void delete_modules_rec(CTX_Node *current);
+
 int add_module(ModuleContext* ctx) {
     CTX_Node* node = malloc(sizeof(CTX_Node));
 
@@ -39,4 +41,19 @@ ModuleContext *get_module_from_id(uint16_t id) {
     }
 
     return NULL;
+}
+
+void delete_modules(void) {
+    delete_modules_rec(ctx_head);
+    ctx_head = NULL;
+}
+
+void delete_modules_rec(CTX_Node *current) {
+    if(current == NULL) {
+        return;
+    }
+
+    delete_modules_rec(current->next);
+    delete_module(&current->ctx);
+    free(current);
 }

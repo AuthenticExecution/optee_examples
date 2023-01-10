@@ -169,6 +169,11 @@ ResultMessage load_module(unsigned char* buf, unsigned int size) {
     return RESULT(ResultCode_Ok);
 }
 
+void delete_module(ModuleContext *ctx) {
+    TEEC_CloseSession(&ctx->sess);
+    TEEC_FinalizeContext(&ctx->ctx);
+}
+
 void handle_input(uint16_t sm, uint16_t conn_id, unsigned char* data, unsigned int len) {
     // check if buffer has enough size
     if(len < SECURITY_BYTES) {

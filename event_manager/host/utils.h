@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <netinet/in.h>
 
+#include "defines.h"
+
 typedef struct ParseState ParseState;
 
 ParseState* create_parse_state(uint8_t* buf, unsigned int len);
@@ -16,5 +18,7 @@ int parse_raw_data(ParseState* state, unsigned int len, uint8_t** buf);
 int parse_all_raw_data(ParseState* state, uint8_t** buf, unsigned int* len);
 
 int connect_to_server(struct in_addr address, uint16_t port, int *fd);
+
+void measure_time(char *msg);
 
 #endif

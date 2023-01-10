@@ -44,7 +44,7 @@ typedef enum {
     CommandCode_CallEntrypoint,
     CommandCode_RemoteOutput,
     CommandCode_LoadSM,
-    CommandCode_Ping,
+    CommandCode_Reset,
     CommandCode_RegisterEntrypoint,
     CommandCode_Invalid
 } CommandCode;

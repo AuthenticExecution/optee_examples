@@ -26,6 +26,7 @@ typedef struct {
 // Generic functions
 int add_module(ModuleContext *ta_ctx);
 ModuleContext *get_module_from_id(uint16_t id);
+void delete_modules(void);
 
 /* API for interfacing with modules */
 
@@ -36,6 +37,7 @@ void send_outputs(unsigned int num_outputs, unsigned char *conn_ids, unsigned ch
 // Generic functions
 int initialize_context(ModuleContext *ctx, unsigned char* buf, unsigned int size);
 ResultMessage load_module(unsigned char* buf, unsigned int size);
+void delete_module(ModuleContext *ctx);
 void handle_input(uint16_t sm, uint16_t conn_id, unsigned char* data, unsigned int len);
 ResultMessage set_key(uint16_t sm, unsigned char* ad, unsigned int ad_len, unsigned char* cipher, unsigned char* tag);
 ResultMessage attest(uint16_t sm, unsigned char* challenge, unsigned int challenge_len);

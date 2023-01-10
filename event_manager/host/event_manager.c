@@ -23,9 +23,9 @@ ResultMessage process_message(CommandMessage m) {
       INFO("Received new module");
       return handler_load_sm(m);
 
-    case CommandCode_Ping:
-      INFO("Received ping");
-      return handler_ping(m);
+    case CommandCode_Reset:
+      INFO("Received reset");
+      return handler_reset(m);
 
     case CommandCode_RegisterEntrypoint:
       INFO("Received entrypoint registration");

@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "logging.h"
 #include "enclave_utils.h"
+#include "module.h"
 
 ResultMessage handler_add_connection(CommandMessage m) {
   Connection connection;
@@ -62,6 +63,7 @@ ResultMessage handler_call_entrypoint(CommandMessage m) {
 
   //DEBUG("id: %d, index: %d", id, index);
 
+  measure_time("call_entrypoint_before_dispatch");
   ResultMessage res;
 
   switch(index) {
@@ -78,6 +80,7 @@ ResultMessage handler_call_entrypoint(CommandMessage m) {
       res = handle_user_entrypoint(id, index, state);
   }
 
+  measure_time("call_entrypoint_after_dispatch");
   free_parse_state(state);
   return res;
 }
@@ -101,7 +104,9 @@ ResultMessage handler_remote_output(CommandMessage m) {
 
   DEBUG("id: %d, conn_id: %d, payload_size: %u", sm, conn_id, payload_len);
 
+  measure_time("remote_output_before_dispatch");
   reactive_handle_input(sm, conn_id, payload, payload_len);
+  measure_time("remote_output_after_dispatch");
 
   free_parse_state(state);
   return RESULT(ResultCode_Ok);
@@ -111,9 +116,15 @@ ResultMessage handler_load_sm(CommandMessage m) {
   return load_enclave(m);
 }
 
-ResultMessage handler_ping(CommandMessage m) {
+ResultMessage handler_reset(CommandMessage m) {
+  //clear all modules
+  delete_modules();
+  //clear all connections
+  delete_connections();
+
   return RESULT(ResultCode_Ok);
 }
+
 
 ResultMessage handler_register_entrypoint(CommandMessage m) {
   WARNING("Periodic events disabled");

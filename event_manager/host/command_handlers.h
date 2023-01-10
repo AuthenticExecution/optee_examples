@@ -16,7 +16,7 @@ ResultMessage handler_add_connection(CommandMessage m);
 ResultMessage handler_call_entrypoint(CommandMessage m);
 ResultMessage handler_remote_output(CommandMessage m);
 ResultMessage handler_load_sm(CommandMessage m);
-ResultMessage handler_ping(CommandMessage m);
+ResultMessage handler_reset(CommandMessage m);
 ResultMessage handler_register_entrypoint(CommandMessage m);
 
 #endif

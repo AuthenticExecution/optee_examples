@@ -1,7 +1,7 @@
 #ifndef __LOGGING_H__
 #define __LOGGING_H__
 
-//#define DBG 1
+#include "defines.h"
 
 #define INFO(...) do{ printf("INFO: "); printf(__VA_ARGS__ ); printf("\n"); } while(0)
 #define WARNING(...) do{ printf("WARNING: "); printf(__VA_ARGS__ ); printf("\n"); } while(0)
