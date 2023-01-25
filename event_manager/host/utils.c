@@ -121,7 +121,6 @@ void measure_time(char *msg) {
         return;
     }
 
-    uint64_t time_micros = tms.tv_nsec / 1000 + (tms.tv_nsec % 1000 >= 500 ? 1 : 0);
-    INFO("tz_%s: %lu%06lu us", msg, tms.tv_sec, time_micros);
+    INFO("tz_%s: %lu%06lu us", msg, tms.tv_sec, tms.tv_nsec / 1000);
 #endif
 }
