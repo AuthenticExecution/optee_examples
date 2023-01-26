@@ -94,7 +94,6 @@ int main(int argc, char const* argv[])
         } else {
             //DEBUG("Read cmd. ID: %d buf size: %u", m->code, m->message->size);
             ResultMessage res = process_message(m);
-            destroy_command_message(m);
 
             if(res != NULL) {
                 DEBUG("Result code: %d, size: %u", res->code, res->message->size);

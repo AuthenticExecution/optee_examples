@@ -1,11 +1,27 @@
 #include "event_manager.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "logging.h"
 #include "command_handlers.h"
 
+ResultMessage _process_message(CommandMessage m);
+
 ResultMessage process_message(CommandMessage m) {
+  if(m->code >= CommandCode_Invalid) {
+      INFO("ECHO");
+      ResultMessage res = RESULT_DATA(ResultCode_Ok, m->message->size, m->message->payload);
+      free(m);
+      return res;
+  } else {
+    ResultMessage res = _process_message(m);
+    destroy_command_message(m);
+    return res;
+  }
+}
+
+ResultMessage _process_message(CommandMessage m) {
   switch (m->code) {
     case CommandCode_AddConnection:
       INFO("Received add connection");
@@ -32,7 +48,7 @@ ResultMessage process_message(CommandMessage m) {
       return handler_register_entrypoint(m);
 
     default: // CommandCode_Invalid
-      WARNING("wrong cmd id");
-      return NULL;
+      ERROR("Fatal: should not be here!");
+      return RESULT(ResultCode_InternalError);
   }
 }
